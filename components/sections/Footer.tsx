@@ -128,7 +128,7 @@ export const Footer = () => (
             </li>
             <li className="flex items-center">
               <Mail className="w-5 h-5 text-[#c39b65] mr-3 shrink-0" />
-              <span>info@multilegalconsultancy.com</span>
+              <span>adv.tanimarahman@gmail.com</span>
             </li>
           </ul>
         </div>
