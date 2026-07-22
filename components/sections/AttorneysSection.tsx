@@ -54,7 +54,7 @@ export const AttorneysSection = () => {
   ];
 
   return (
-    <section className="py-20 bg-white">
+    <section id="team" className="py-20 bg-white">
       <div className="container mx-auto px-4">
         <SectionHeading subtitle="Dedicated Professionals" title="Our Team" />
 

@@ -3,7 +3,7 @@ import { BookOpen } from "lucide-react";
 import { Button } from "../ui/Button";
 
 export const EvaluationForm = () => (
-  <section className="flex flex-col lg:flex-row w-full">
+  <section id="contact" className="flex flex-col lg:flex-row w-full">
     {/* Form Side */}
     <div className="bg-[#f8f9fa] p-10 lg:p-20 lg:w-1/2 flex justify-end order-2 lg:order-1 border-t border-gray-200">
       <div className="max-w-md w-full text-[#222429]">

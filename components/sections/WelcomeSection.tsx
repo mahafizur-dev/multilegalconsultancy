@@ -3,7 +3,7 @@ import { Building2, Landmark, Scale } from "lucide-react";
 
 export const WelcomeSection = () => {
   return (
-    <section className="py-20 bg-white">
+    <section id="about" className="py-20 bg-white">
       <div className="container mx-auto px-4">
         <div className="flex flex-col lg:flex-row mb-16 gap-12 items-center">
           <div className="lg:w-5/12">

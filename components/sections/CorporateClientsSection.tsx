@@ -14,7 +14,7 @@ export const CorporateClientsSection = () => {
   ];
 
   return (
-    <section className="py-20 bg-[#222429] text-white">
+    <section id="clients" className="py-20 bg-[#222429] text-white">
       <div className="container mx-auto px-4 text-center">
         <SectionHeading
           subtitle="Trusted By"

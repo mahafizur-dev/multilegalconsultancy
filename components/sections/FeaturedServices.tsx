@@ -80,7 +80,7 @@ export const FeaturedServices = () => {
   ];
 
   return (
-    <section className="py-20 bg-[#f4f5f7]">
+    <section id="practices" className="py-20 bg-[#f4f5f7]">
       <div className="container mx-auto px-4">
         <SectionHeading subtitle="What We Do" title="Our Practice Areas" />
 
