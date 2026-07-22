@@ -62,16 +62,19 @@ export const Footer = () => (
           </h3>
           <ul className="space-y-2 text-sm">
             {[
-              "Home",
-              "About Us",
-              "Our Team",
-              "Corporate Clients",
-              "Contact Us",
+              { label: "Home", href: "#home" },
+              { label: "About Us", href: "#about" },
+              { label: "Our Team", href: "#team" },
+              { label: "Corporate Clients", href: "#clients" },
+              { label: "Contact Us", href: "#contact" },
             ].map((link, i) => (
               <li key={i}>
-                <a href="#" className="hover:text-[#c39b65] flex items-center">
+                <a
+                  href={link.href}
+                  className="hover:text-[#c39b65] flex items-center"
+                >
                   <ChevronRight size={14} className="mr-1 text-[#c39b65]" />{" "}
-                  {link}
+                  {link.label}
                 </a>
               </li>
             ))}
