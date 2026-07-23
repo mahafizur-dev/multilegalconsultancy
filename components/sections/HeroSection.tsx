@@ -1,9 +1,13 @@
 import React from "react";
+import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Button } from "../ui/Button";
 
 export const HeroSection = () => (
-  <section className="relative h-screen flex items-center justify-center text-center">
+  <section
+    id="home"
+    className="relative h-screen flex items-center justify-center text-center"
+  >
     <div
       className="absolute inset-0 bg-cover bg-top"
       style={{
@@ -26,10 +30,14 @@ export const HeroSection = () => (
         a one-stop-service to national and multinational companies.
       </p>
       <div className="flex flex-col sm:flex-row justify-center gap-4">
-        <Button variant="primary">Consult With Us</Button>
-        <Button variant="outline">
-          Explore Services <ArrowRight className="inline w-4 h-4 ml-2" />
-        </Button>
+        <Link href="#contact">
+          <Button variant="primary">Consult With Us</Button>
+        </Link>
+        <Link href="#practices">
+          <Button variant="outline">
+            Explore Services <ArrowRight className="inline w-4 h-4 ml-2" />
+          </Button>
+        </Link>
       </div>
     </div>
   </section>
