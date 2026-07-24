@@ -25,7 +25,7 @@ export const AttorneysSection = () => {
       name: "Md. Mazaharul Islam Khan",
       role: "Partner",
       desc: "VAT & Tax Consultant",
-      img: "https://res.cloudinary.com/dpnehdjkx/image/upload/v1777217337/multilegalconsultancy/yngwlfttfi2qjsvdovjg.jpg",
+      img: "https://res.cloudinary.com/dpnehdjkx/image/upload/v1784865602/p5wgvi1gpgoeh6l3bm2b.jpg",
     },
     {
       name: "Ashique Iqbal",

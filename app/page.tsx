@@ -2,6 +2,7 @@ import { TopBar } from "@/components/sections/TopBar";
 import { Header } from "@/components/sections/Header";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { WelcomeSection } from "@/components/sections/WelcomeSection";
+import { ManagingPartnerSection } from "@/components/sections/ManagingPartnerSection";
 import { ForeignInvestmentAdvisory } from "@/components/sections/ForeignInvestmentAdvisory";
 import { FeaturedServices } from "@/components/sections/FeaturedServices";
 import { AttorneysSection } from "@/components/sections/AttorneysSection";
@@ -18,6 +19,7 @@ export default function Home() {
       <main>
         <HeroSection />
         <WelcomeSection />
+        <ManagingPartnerSection />
         <ForeignInvestmentAdvisory />
         <FeaturedServices />
         <AttorneysSection />
