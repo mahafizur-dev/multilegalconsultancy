@@ -6,7 +6,7 @@ export const AttorneysSection = () => {
     {
       name: "Tanima Rahman",
       role: "Managing Partner",
-      desc: "Advocate, Supreme Court",
+      desc: "Advocate, Supreme Court of Bangladesh",
       img: "https://res.cloudinary.com/dpnehdjkx/image/upload/v1777217337/multilegalconsultancy/cbxykopqqkemelmpujm9.jpg",
     },
     {
@@ -37,13 +37,13 @@ export const AttorneysSection = () => {
       name: "T.M. Ashikur Rahman",
       role: "Income Tax Consultant",
       desc: "Income Tax Practitioner (ITP)",
-      img: "",
+      img: "https://res.cloudinary.com/dpnehdjkx/image/upload/v1786082684/gcc5ucbcfsofghyxft6s.jpg",
     },
     {
       name: "Md. Imdadul Haque Shamim",
       role: "Advocate",
       desc: "Supreme Court of Bangladesh",
-      img: "https://res.cloudinary.com/dpnehdjkx/image/upload/v1786082051/nkebju4asb1vf9sc66lv.jpg",
+      img: "https://res.cloudinary.com/dpnehdjkx/image/upload/v1786082683/i08cjrpa4cb4cbkp2qvc.jpg",
     },
     {
       name: "Noshin Layla Mithi",
