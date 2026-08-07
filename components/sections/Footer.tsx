@@ -22,7 +22,7 @@ export const Footer = () => (
           <div className="flex space-x-3">
             <div className="w-8 h-8 bg-gray-800 flex items-center justify-center hover:bg-[#c39b65] hover:text-white transition cursor-pointer rounded">
               <svg
-                xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)"
+                xmlns="http://www.w3.org/2000/svg"
                 width="14"
                 height="14"
                 viewBox="0 0 24 24"
@@ -37,7 +37,7 @@ export const Footer = () => (
             </div>
             <div className="w-8 h-8 bg-gray-800 flex items-center justify-center hover:bg-[#c39b65] hover:text-white transition cursor-pointer rounded">
               <svg
-                xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)"
+                xmlns="http://www.w3.org/2000/svg"
                 width="14"
                 height="14"
                 viewBox="0 0 24 24"
