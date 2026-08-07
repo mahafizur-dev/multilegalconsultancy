@@ -31,25 +31,25 @@ export const AttorneysSection = () => {
       name: "Ashique Iqbal",
       role: "Advocate",
       desc: "Bachelor of Laws (RU)",
-      img: "[https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80](https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80)",
+      img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
     },
     {
       name: "T.M. Ashikur Rahman",
       role: "VAT & Tax Consultant",
       desc: "Income Tax Practitioner (ITP)",
-      img: "[https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80](https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80)",
+      img: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
     },
     {
       name: "Md. Imdadul Haque Shamim",
       role: "Advocate",
       desc: "Supreme Court of Bangladesh",
-      img: "[https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=400&q=80](https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=400&q=80)",
+      img: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=400&q=80",
     },
     {
       name: "Noshin Layla Mithi",
       role: "Legal Researcher",
       desc: "Bachelor of Laws",
-      img: "[https://images.unsplash.com/photo-1598550874175-4d0ef436c909?auto=format&fit=crop&w=400&q=80](https://images.unsplash.com/photo-1598550874175-4d0ef436c909?auto=format&fit=crop&w=400&q=80)",
+      img: "https://images.unsplash.com/photo-1598550874175-4d0ef436c909?auto=format&fit=crop&w=400&q=80",
     },
   ];
 
