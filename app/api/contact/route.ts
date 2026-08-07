@@ -3,10 +3,24 @@ import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+const escapeHtml = (value: string) =>
+  value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { firstName, lastName, email, phone, message } = body;
+    const { firstName, lastName, email, phone, message, website } = body;
+
+    // Honeypot: real users never fill this hidden field. Bots that do get a
+    // fake success response so they don't learn to avoid the trap.
+    if (typeof website === "string" && website.trim() !== "") {
+      return NextResponse.json({ success: true });
+    }
 
     // Basic validation
     if (!firstName || !lastName || !email || !message) {
@@ -25,13 +39,19 @@ export async function POST(req: Request) {
       );
     }
 
-    await resend.emails.send({
+    const safeFirstName = escapeHtml(firstName);
+    const safeLastName = escapeHtml(lastName);
+    const safeEmail = escapeHtml(email);
+    const safePhone = escapeHtml(phone || "Not provided");
+    const safeMessage = escapeHtml(message).replace(/\n/g, "<br/>");
+
+    const { error: sendError } = await resend.emails.send({
       // Use your own verified domain once added in Resend.
       // Until a domain is verified, Resend only allows sending from onboarding@resend.dev
       from: "MCL Website <onboarding@resend.dev>",
       to: ["adv.tanimarahman@gmail.com"], // where you want to receive inquiries
       replyTo: email,
-      subject: `New Consultation Request from ${firstName} ${lastName}`,
+      subject: `New Consultation Request from ${safeFirstName} ${safeLastName}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <div style="background-color: #222429; padding: 24px; text-align: center;">
@@ -43,20 +63,20 @@ export async function POST(req: Request) {
             <table style="width: 100%; border-collapse: collapse;">
               <tr>
                 <td style="padding: 8px 0; color: #666; width: 120px;"><strong>Name:</strong></td>
-                <td style="padding: 8px 0; color: #222429;">${firstName} ${lastName}</td>
+                <td style="padding: 8px 0; color: #222429;">${safeFirstName} ${safeLastName}</td>
               </tr>
               <tr>
                 <td style="padding: 8px 0; color: #666;"><strong>Email:</strong></td>
-                <td style="padding: 8px 0; color: #222429;">${email}</td>
+                <td style="padding: 8px 0; color: #222429;">${safeEmail}</td>
               </tr>
               <tr>
                 <td style="padding: 8px 0; color: #666;"><strong>Phone:</strong></td>
-                <td style="padding: 8px 0; color: #222429;">${phone || "Not provided"}</td>
+                <td style="padding: 8px 0; color: #222429;">${safePhone}</td>
               </tr>
             </table>
             <div style="margin-top: 20px; padding: 16px; background-color: #ffffff; border-left: 4px solid #c39b65;">
               <p style="margin: 0; color: #666; font-weight: bold; margin-bottom: 8px;">Message:</p>
-              <p style="margin: 0; color: #222429; line-height: 1.6;">${message}</p>
+              <p style="margin: 0; color: #222429; line-height: 1.6;">${safeMessage}</p>
             </div>
           </div>
           <div style="padding: 16px; text-align: center; background-color: #1c1e22;">
@@ -67,6 +87,14 @@ export async function POST(req: Request) {
         </div>
       `,
     });
+
+    if (sendError) {
+      console.error("Resend send error:", sendError);
+      return NextResponse.json(
+        { success: false, error: "Failed to send message" },
+        { status: 502 },
+      );
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {

@@ -11,6 +11,7 @@ export const EvaluationForm = () => {
     email: "",
     phone: "",
     message: "",
+    website: "", // honeypot: left blank by real users, hidden from view
   });
   const [status, setStatus] = useState<
     "idle" | "loading" | "success" | "error"
@@ -42,6 +43,7 @@ export const EvaluationForm = () => {
         email: "",
         phone: "",
         message: "",
+        website: "",
       });
     } catch (err) {
       setStatus("error");
@@ -68,6 +70,16 @@ export const EvaluationForm = () => {
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
+              <input
+                type="text"
+                name="website"
+                value={formData.website}
+                onChange={handleChange}
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                className="absolute left-[-9999px] w-px h-px overflow-hidden"
+              />
               <div className="grid grid-cols-2 gap-4">
                 <input
                   type="text"
