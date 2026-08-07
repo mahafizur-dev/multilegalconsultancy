@@ -46,9 +46,7 @@ export async function POST(req: Request) {
     const safeMessage = escapeHtml(message).replace(/\n/g, "<br/>");
 
     const { error: sendError } = await resend.emails.send({
-      // Use your own verified domain once added in Resend.
-      // Until a domain is verified, Resend only allows sending from onboarding@resend.dev
-      from: "MCL Website <onboarding@resend.dev>",
+      from: "MCL Website <no-reply@multilegalconsultancy.com>",
       to: ["adv.tanimarahman@gmail.com"], // where you want to receive inquiries
       replyTo: email,
       subject: `New Consultation Request from ${safeFirstName} ${safeLastName}`,
