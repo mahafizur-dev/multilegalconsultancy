@@ -12,44 +12,44 @@ export const AttorneysSection = () => {
     {
       name: "Layla Salma Banu",
       role: "Senior Partner",
-      desc: "Senior District & Sessions Judge (Rtd.)",
+      desc: "Advocate, Supreme Court of Bangladesh",
       img: "https://res.cloudinary.com/dpnehdjkx/image/upload/v1777217337/multilegalconsultancy/foy6wpmucfoxeji177yd.jpg",
     },
     {
       name: "Md. Mojibur Rahman",
       role: "Advisor",
-      desc: "Joint Secretary (Rtd.)",
+      desc: "Retired Additional Secretary",
       img: "https://res.cloudinary.com/dpnehdjkx/image/upload/v1777217337/multilegalconsultancy/giiaufchcghunntujv8d.jpg",
     },
     {
       name: "Md. Mazaharul Islam Khan",
       role: "Partner",
-      desc: "VAT & Tax Consultant",
+      desc: "Income Tax Consultant",
       img: "https://res.cloudinary.com/dpnehdjkx/image/upload/v1784865602/p5wgvi1gpgoeh6l3bm2b.jpg",
     },
     {
       name: "Ashique Iqbal",
       role: "Advocate",
       desc: "Bachelor of Laws (RU)",
-      img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
+      img: "https://res.cloudinary.com/dpnehdjkx/image/upload/v1786081956/jb7aajqfynaad3ororom.jpg",
     },
     {
       name: "T.M. Ashikur Rahman",
-      role: "VAT & Tax Consultant",
+      role: "Income Tax Consultant",
       desc: "Income Tax Practitioner (ITP)",
-      img: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
+      img: "",
     },
     {
       name: "Md. Imdadul Haque Shamim",
       role: "Advocate",
       desc: "Supreme Court of Bangladesh",
-      img: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=400&q=80",
+      img: "https://res.cloudinary.com/dpnehdjkx/image/upload/v1786082051/nkebju4asb1vf9sc66lv.jpg",
     },
     {
       name: "Noshin Layla Mithi",
       role: "Legal Researcher",
       desc: "Bachelor of Laws",
-      img: "https://images.unsplash.com/photo-1598550874175-4d0ef436c909?auto=format&fit=crop&w=400&q=80",
+      img: "https://res.cloudinary.com/dpnehdjkx/image/upload/v1786081956/nxwz49fbijhnus998z0x.jpg",
     },
   ];
 
