@@ -1,18 +1,20 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Archivo, Libre_Baskerville } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const archivo = Archivo({
+  variable: "--font-archivo",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const baskerville = Libre_Baskerville({
+  variable: "--font-baskerville",
   subsets: ["latin"],
+  weight: ["400", "700"],
+  style: ["normal", "italic"],
 });
 
-// ওয়েবসাইটের টাইটেল এবং ডেসক্রিপশন আপডেট করা হলো
+// ওয়েবসাইটের টাইটেল এবং ডেসক্রিপশন আপডেট করা হলো
 export const metadata: Metadata = {
   title: "MCL | Multilegal Consultancy",
   description:
@@ -27,9 +29,17 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${archivo.variable} ${baskerville.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: "document.documentElement.classList.add('js')",
+          }}
+        />
+      </head>
+      <body className="min-h-full flex flex-col bg-cream">{children}</body>
     </html>
   );
 }

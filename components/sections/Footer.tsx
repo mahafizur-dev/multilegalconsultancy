@@ -1,17 +1,19 @@
 import React from "react";
 import { Scale, MapPin, Phone, Mail, ChevronRight } from "lucide-react";
+import { LOGO_URL } from "@/lib/brand";
+import { revealDelay } from "@/lib/motion";
 
 export const Footer = () => (
-  <footer className="bg-[#1c1e22] text-gray-400 pt-16 pb-8">
-    <div className="container mx-auto px-4">
+  <footer className="bg-ink-900 text-cream/70 pt-20 pb-8">
+    <div className="site-container">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
         {/* Column 1 */}
-        <div className="lg:pr-6">
-          <div className="flex items-center text-white mb-6">
+        <div data-reveal className="lg:pr-6">
+          <div className="flex items-center mb-6">
             <img
-              src="/image_47fca0.png"
+              src={LOGO_URL}
               alt="MCL Multilegal Consultancy"
-              className="h-10 md:h-12 object-contain"
+              className="h-10 md:h-11 w-auto object-contain"
             />
           </div>
           <p className="text-sm mb-6 leading-relaxed">
@@ -20,7 +22,7 @@ export const Footer = () => (
             trust in our work.
           </p>
           <div className="flex space-x-3">
-            <div className="w-8 h-8 bg-gray-800 flex items-center justify-center hover:bg-[#c39b65] hover:text-white transition cursor-pointer rounded">
+            <div className="w-8 h-8 border border-cream/20 flex items-center justify-center hover:bg-accent hover:border-accent hover:text-ink transition cursor-pointer rounded">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="14"
@@ -35,7 +37,7 @@ export const Footer = () => (
                 <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
               </svg>
             </div>
-            <div className="w-8 h-8 bg-gray-800 flex items-center justify-center hover:bg-[#c39b65] hover:text-white transition cursor-pointer rounded">
+            <div className="w-8 h-8 border border-cream/20 flex items-center justify-center hover:bg-accent hover:border-accent hover:text-ink transition cursor-pointer rounded">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="14"
@@ -56,11 +58,11 @@ export const Footer = () => (
         </div>
 
         {/* Column 2 */}
-        <div>
-          <h3 className="text-white text-lg font-bold mb-6 uppercase">
+        <div data-reveal style={revealDelay(1)}>
+          <h3 className="font-serif text-cream text-lg mb-6">
             Quick Links
           </h3>
-          <ul className="space-y-2 text-sm">
+          <ul className="text-sm">
             {[
               { label: "Home", href: "#home" },
               { label: "About Us", href: "#about" },
@@ -71,9 +73,9 @@ export const Footer = () => (
               <li key={i}>
                 <a
                   href={link.href}
-                  className="hover:text-[#c39b65] flex items-center"
+                  className="hover:text-accent flex items-center py-1.5"
                 >
-                  <ChevronRight size={14} className="mr-1 text-[#c39b65]" />{" "}
+                  <ChevronRight size={14} className="mr-1 text-accent" />{" "}
                   {link.label}
                 </a>
               </li>
@@ -82,11 +84,11 @@ export const Footer = () => (
         </div>
 
         {/* Column 3 */}
-        <div>
-          <h3 className="text-white text-lg font-bold mb-6 uppercase">
+        <div data-reveal style={revealDelay(2)}>
+          <h3 className="font-serif text-cream text-lg mb-6">
             Practice Areas
           </h3>
-          <ul className="space-y-2 text-sm">
+          <ul className="text-sm">
             {[
               "Corporate Law & RJSC",
               "Taxation, VAT & Customs",
@@ -96,8 +98,8 @@ export const Footer = () => (
               "Labour & Employment",
             ].map((link, i) => (
               <li key={i}>
-                <a href="#" className="hover:text-[#c39b65] flex items-center">
-                  <ChevronRight size={14} className="mr-1 text-[#c39b65]" />{" "}
+                <a href="#" className="hover:text-accent flex items-center py-1.5">
+                  <ChevronRight size={14} className="mr-1 text-accent" />{" "}
                   {link}
                 </a>
               </li>
@@ -106,31 +108,31 @@ export const Footer = () => (
         </div>
 
         {/* Column 4 */}
-        <div>
-          <h3 className="text-white text-lg font-bold mb-6 uppercase">
+        <div data-reveal style={revealDelay(3)}>
+          <h3 className="font-serif text-cream text-lg mb-6">
             Get In Touch
           </h3>
           <ul className="space-y-4 text-sm">
             <li className="flex items-start">
-              <MapPin className="w-5 h-5 text-[#c39b65] mr-3 shrink-0 mt-0.5" />
+              <MapPin className="w-5 h-5 text-accent mr-3 shrink-0 mt-0.5" />
               <span className="leading-relaxed">
                 <strong>Office:</strong> Q-10, Baily Ritz Apartment, 1 New Baily
                 Road, Dhaka- 1000
               </span>
             </li>
             <li className="flex items-start">
-              <Scale className="w-5 h-5 text-[#c39b65] mr-3 shrink-0 mt-0.5" />
+              <Scale className="w-5 h-5 text-accent mr-3 shrink-0 mt-0.5" />
               <span className="leading-relaxed">
                 <strong>Court Chamber:</strong> Hall No. 1, Supreme Court Bar
                 Association Building, Dhaka, Bangladesh
               </span>
             </li>
             <li className="flex items-center">
-              <Phone className="w-5 h-5 text-[#c39b65] mr-3 shrink-0" />
+              <Phone className="w-5 h-5 text-accent mr-3 shrink-0" />
               <span>+8801307289692 (Cell/WhatsApp)</span>
             </li>
             <li className="flex items-center">
-              <Mail className="w-5 h-5 text-[#c39b65] mr-3 shrink-0" />
+              <Mail className="w-5 h-5 text-accent mr-3 shrink-0" />
               <span>adv.tanimarahman@gmail.com</span>
             </li>
           </ul>
@@ -138,16 +140,16 @@ export const Footer = () => (
       </div>
 
       {/* Copyright */}
-      <div className="border-t border-gray-800 pt-8 mt-8 flex flex-col md:flex-row justify-between items-center text-xs">
+      <div className="border-t border-cream/10 pt-8 mt-8 flex flex-col md:flex-row justify-between items-center text-xs">
         <p>
           &copy; {new Date().getFullYear()} Multilegal Consultancy (MCL). All
           Rights Reserved.
         </p>
         <div className="flex space-x-4 mt-4 md:mt-0">
-          <a href="#" className="hover:text-white">
+          <a href="#" className="hover:text-cream py-1">
             Terms of Use
           </a>
-          <a href="#" className="hover:text-white">
+          <a href="#" className="hover:text-cream py-1">
             Privacy Policy
           </a>
         </div>

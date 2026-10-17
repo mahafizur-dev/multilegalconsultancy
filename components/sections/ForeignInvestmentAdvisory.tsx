@@ -1,6 +1,7 @@
 import React from "react";
 import { CheckCircle } from "lucide-react";
 import { SectionHeading } from "../ui/SectionHeading";
+import { revealDelay } from "@/lib/motion";
 
 export const ForeignInvestmentAdvisory = () => {
   const advisoryServices = [
@@ -15,21 +16,28 @@ export const ForeignInvestmentAdvisory = () => {
   ];
 
   return (
-    <section className="py-20 bg-white border-t border-gray-100">
-      <div className="container mx-auto px-4">
+    <section className="py-24 bg-ink text-cream">
+      <div className="site-container">
         <SectionHeading
           subtitle="Global Reach"
-          title="Foreign Investment & Corporate Advisory"
+          title="Foreign Investment &"
+          highlight="Corporate Advisory"
+          tone="dark"
         />
 
-        <div className="max-w-4xl mx-auto space-y-4">
+        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-x-10">
           {advisoryServices.map((item, idx) => (
             <div
               key={idx}
-              className="flex gap-4 items-start bg-[#f8f9fa] p-5 rounded-sm hover:shadow-sm transition-shadow group border border-gray-100"
+              data-reveal
+              style={revealDelay(idx, 2, 100)}
+              className="flex gap-4 items-start py-5 border-b border-cream/10 group"
             >
-              <CheckCircle className="flex-shrink-0 w-6 h-6 text-[#c39b65] mt-0.5 group-hover:scale-110 transition-transform" />
-              <p className="text-gray-600 leading-relaxed text-sm text-justify">
+              <CheckCircle
+                strokeWidth={1.5}
+                className="shrink-0 w-6 h-6 text-accent mt-0.5 group-hover:scale-110 transition-transform"
+              />
+              <p className="text-cream/75 leading-relaxed text-[15px]">
                 {item}
               </p>
             </div>

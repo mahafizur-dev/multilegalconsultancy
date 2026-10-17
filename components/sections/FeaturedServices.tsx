@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import {
   Globe,
   Briefcase,
@@ -12,10 +14,21 @@ import {
   Ship,
   Map,
   Gavel,
+  ChevronDown,
 } from "lucide-react";
 import { SectionHeading } from "../ui/SectionHeading";
+import { revealDelay } from "@/lib/motion";
 
 export const FeaturedServices = () => {
+  const [open, setOpen] = useState<Set<number>>(() => new Set());
+  const toggle = (idx: number) =>
+    setOpen((prev) => {
+      const next = new Set(prev);
+      if (next.has(idx)) next.delete(idx);
+      else next.add(idx);
+      return next;
+    });
+
   const services = [
     {
       icon: <Globe />,
@@ -80,33 +93,88 @@ export const FeaturedServices = () => {
   ];
 
   return (
-    <section id="practices" className="py-20 bg-[#f4f5f7]">
-      <div className="container mx-auto px-4">
-        <SectionHeading subtitle="What We Do" title="Our Practice Areas" />
+    <section id="practices" className="py-24 bg-cream">
+      <div className="site-container">
+        <SectionHeading
+          subtitle="What We Do"
+          title="Our Practice"
+          highlight="Areas"
+        />
 
-        <p className="text-center text-gray-600 max-w-3xl mx-auto mb-12">
+        <p
+          data-reveal
+          className="text-center text-ink/75 max-w-3xl mx-auto -mt-6 mb-16 text-lg leading-relaxed"
+        >
           With a wide network of expert persons in the concerned fields, our
           firm provides a one-stop-service for all your corporate legal and
           taxation needs.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((srv, idx) => (
-            <div
-              key={idx}
-              className="bg-white p-8 border border-gray-100 hover:shadow-xl transition-shadow flex flex-col items-start group"
-            >
-              <div className="text-[#c39b65] bg-yellow-50 p-4 rounded-lg mb-6 group-hover:bg-[#c39b65] group-hover:text-white transition-colors">
-                {React.cloneElement(srv.icon, { className: "w-8 h-8" })}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-12 max-w-6xl mx-auto">
+          {services.map((srv, idx) => {
+            const isOpen = open.has(idx);
+            const panelId = `practice-${idx}`;
+            return (
+              <div
+                key={idx}
+                data-reveal
+                style={revealDelay(idx, 2, 120)}
+                className="flex gap-5 items-start group"
+              >
+                <div className="shrink-0 text-accent-600 border border-accent/40 p-3 group-hover:bg-ink group-hover:border-ink group-hover:text-accent transition-colors">
+                  {React.cloneElement(srv.icon, {
+                    className: "w-7 h-7",
+                    strokeWidth: 1.5,
+                  })}
+                </div>
+                <div className="flex-1 min-w-0">
+                  {/* Desktop: plain heading, full text always shown. */}
+                  <h3 className="hidden lg:block font-serif text-xl text-ink mb-3 transition-colors group-hover:text-accent-600">
+                    {srv.title}
+                  </h3>
+                  {/* Phones & tablets: heading toggles the description. */}
+                  <h3 className="lg:hidden">
+                    <button
+                      type="button"
+                      aria-expanded={isOpen}
+                      aria-controls={panelId}
+                      onClick={() => toggle(idx)}
+                      className="flex w-full items-start justify-between gap-3 py-1 mb-2 text-left font-serif text-xl text-ink"
+                    >
+                      {srv.title}
+                      <ChevronDown
+                        aria-hidden="true"
+                        className={`mt-1 h-5 w-5 shrink-0 text-accent-600 transition-transform duration-300 ${
+                          isOpen ? "rotate-180" : ""
+                        }`}
+                      />
+                    </button>
+                  </h3>
+                  <div
+                    id={panelId}
+                    className={`overflow-hidden transition-[max-height] duration-500 ease-in-out lg:max-h-none lg:[mask-image:none] ${
+                      isOpen
+                        ? "max-h-[40rem]"
+                        : "max-h-12 [mask-image:linear-gradient(to_bottom,black_30%,transparent)]"
+                    }`}
+                  >
+                    <p className="text-ink/70 text-[15px] leading-relaxed">
+                      {srv.desc}
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    aria-expanded={isOpen}
+                    aria-controls={panelId}
+                    onClick={() => toggle(idx)}
+                    className="lg:hidden mt-2 py-1 text-sm font-medium text-accent-600"
+                  >
+                    {isOpen ? "Show less" : "Read more"}
+                  </button>
+                </div>
               </div>
-              <h3 className="text-lg font-bold text-[#222429] uppercase mb-4">
-                {srv.title}
-              </h3>
-              <p className="text-gray-500 text-sm leading-relaxed text-justify">
-                {srv.desc}
-              </p>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

@@ -1,30 +1,50 @@
 import React from "react";
+import Link from "next/link";
+
+type Variant = "light" | "dark" | "outline";
+
+const baseStyle =
+  "inline-flex items-center justify-center gap-2 px-7 py-3 text-sm font-medium tracking-wide transition-colors duration-300";
+
+const variants: Record<Variant, string> = {
+  light: "bg-cream text-ink hover:bg-accent",
+  dark: "bg-ink text-cream hover:bg-accent-600",
+  outline: "border border-cream/40 text-cream hover:border-accent hover:text-accent",
+};
+
+const buttonClass = (variant: Variant, rounded: boolean, className: string) =>
+  `${baseStyle} ${variants[variant]} ${rounded ? "rounded-full" : ""} ${className}`;
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "outline" | "dark";
+  variant?: Variant;
+  rounded?: boolean;
 }
 
 export const Button: React.FC<ButtonProps> = ({
   children,
-  variant = "primary",
+  variant = "dark",
+  rounded = false,
   className = "",
   ...props
-}) => {
-  const baseStyle =
-    "px-6 py-3 font-semibold transition-all duration-300 text-sm uppercase tracking-wider";
-  const variants = {
-    primary: "bg-[#c39b65] text-white hover:bg-yellow-700",
-    outline:
-      "border-2 border-white text-white hover:bg-white hover:text-[#222429]",
-    dark: "bg-[#222429] text-white hover:bg-gray-800",
-  };
+}) => (
+  <button className={buttonClass(variant, rounded, className)} {...props}>
+    {children}
+  </button>
+);
 
-  return (
-    <button
-      className={`${baseStyle} ${variants[variant]} ${className}`}
-      {...props}
-    >
-      {children}
-    </button>
-  );
-};
+interface ButtonLinkProps extends React.ComponentProps<typeof Link> {
+  variant?: Variant;
+  rounded?: boolean;
+}
+
+export const ButtonLink: React.FC<ButtonLinkProps> = ({
+  children,
+  variant = "dark",
+  rounded = false,
+  className = "",
+  ...props
+}) => (
+  <Link className={buttonClass(variant, rounded, className)} {...props}>
+    {children}
+  </Link>
+);

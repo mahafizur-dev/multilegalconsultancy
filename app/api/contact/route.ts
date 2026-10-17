@@ -52,8 +52,8 @@ export async function POST(req: Request) {
       subject: `New Consultation Request from ${safeFirstName} ${safeLastName}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <div style="background-color: #222429; padding: 24px; text-align: center;">
-            <h1 style="color: #c39b65; margin: 0; font-size: 20px; text-transform: uppercase; letter-spacing: 2px;">
+          <div style="background-color: #2d1c0d; padding: 24px; text-align: center;">
+            <h1 style="color: #c57b57; margin: 0; font-size: 20px; text-transform: uppercase; letter-spacing: 2px;">
               New Website Inquiry
             </h1>
           </div>
@@ -61,23 +61,23 @@ export async function POST(req: Request) {
             <table style="width: 100%; border-collapse: collapse;">
               <tr>
                 <td style="padding: 8px 0; color: #666; width: 120px;"><strong>Name:</strong></td>
-                <td style="padding: 8px 0; color: #222429;">${safeFirstName} ${safeLastName}</td>
+                <td style="padding: 8px 0; color: #2d1c0d;">${safeFirstName} ${safeLastName}</td>
               </tr>
               <tr>
                 <td style="padding: 8px 0; color: #666;"><strong>Email:</strong></td>
-                <td style="padding: 8px 0; color: #222429;">${safeEmail}</td>
+                <td style="padding: 8px 0; color: #2d1c0d;">${safeEmail}</td>
               </tr>
               <tr>
                 <td style="padding: 8px 0; color: #666;"><strong>Phone:</strong></td>
-                <td style="padding: 8px 0; color: #222429;">${safePhone}</td>
+                <td style="padding: 8px 0; color: #2d1c0d;">${safePhone}</td>
               </tr>
             </table>
-            <div style="margin-top: 20px; padding: 16px; background-color: #ffffff; border-left: 4px solid #c39b65;">
+            <div style="margin-top: 20px; padding: 16px; background-color: #ffffff; border-left: 4px solid #c57b57;">
               <p style="margin: 0; color: #666; font-weight: bold; margin-bottom: 8px;">Message:</p>
-              <p style="margin: 0; color: #222429; line-height: 1.6;">${safeMessage}</p>
+              <p style="margin: 0; color: #2d1c0d; line-height: 1.6;">${safeMessage}</p>
             </div>
           </div>
-          <div style="padding: 16px; text-align: center; background-color: #1c1e22;">
+          <div style="padding: 16px; text-align: center; background-color: #22150a;">
             <p style="margin: 0; color: #888; font-size: 12px;">
               Sent from the Multilegal Consultancy website contact form
             </p>

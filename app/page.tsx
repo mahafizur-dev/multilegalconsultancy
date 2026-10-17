@@ -1,6 +1,7 @@
 import { TopBar } from "@/components/sections/TopBar";
 import { Header } from "@/components/sections/Header";
 import { HeroSection } from "@/components/sections/HeroSection";
+import { StatsSection } from "@/components/sections/StatsSection";
 import { WelcomeSection } from "@/components/sections/WelcomeSection";
 import { ManagingPartnerSection } from "@/components/sections/ManagingPartnerSection";
 import { ForeignInvestmentAdvisory } from "@/components/sections/ForeignInvestmentAdvisory";
@@ -9,15 +10,18 @@ import { AttorneysSection } from "@/components/sections/AttorneysSection";
 import { CorporateClientsSection } from "@/components/sections/CorporateClientsSection";
 import { EvaluationForm } from "@/components/sections/EvaluationForm";
 import { Footer } from "@/components/sections/Footer";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
 export default function Home() {
   return (
-    <div className="font-sans text-gray-800 antialiased selection:bg-[#c39b65] selection:text-white bg-white">
+    <div className="font-sans text-ink antialiased selection:bg-accent selection:text-ink bg-cream">
+      <div className="scroll-progress" aria-hidden="true" />
       <TopBar />
       <Header />
 
       <main>
         <HeroSection />
+        <StatsSection />
         <WelcomeSection />
         <ManagingPartnerSection />
         <ForeignInvestmentAdvisory />
@@ -28,6 +32,7 @@ export default function Home() {
       </main>
 
       <Footer />
+      <ScrollReveal />
     </div>
   );
 }

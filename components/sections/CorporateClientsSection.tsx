@@ -14,27 +14,38 @@ export const CorporateClientsSection = () => {
   ];
 
   return (
-    <section id="clients" className="py-20 bg-[#222429] text-white">
-      <div className="container mx-auto px-4 text-center">
+    <section id="clients" className="py-24 bg-ink text-cream">
+      <div className="site-container text-center">
         <SectionHeading
           subtitle="Trusted By"
-          title="Our Current Corporate Clients"
-          alignment="center"
+          title="Our Current"
+          highlight="Corporate Clients"
+          tone="dark"
         />
-        <div className="w-16 h-1 bg-[#c39b65] mx-auto mt-[-30px] mb-12"></div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 max-w-5xl mx-auto">
+        <div
+          data-reveal
+          className="grid grid-cols-2 md:grid-cols-4 max-w-5xl mx-auto border-l border-t border-cream/15"
+        >
           {clients.map((client, idx) => (
             <div
               key={idx}
-              className="bg-[#2d3239] border border-gray-700 hover:border-[#c39b65] p-6 flex items-center justify-center text-center transition-colors min-h-[120px] rounded-sm group"
+              className="border-r border-b border-cream/15 p-6 flex items-center justify-center text-center min-h-[120px] transition-colors hover:bg-ink-800 group"
             >
-              <span className="font-semibold text-gray-300 group-hover:text-white transition-colors">
+              <span className="font-serif text-cream/80 group-hover:text-accent transition-colors">
                 {client}
               </span>
             </div>
           ))}
         </div>
+
+        <p
+          data-reveal
+          className="font-serif text-2xl md:text-4xl text-cream/90 leading-snug max-w-3xl mx-auto mt-20"
+        >
+          &ldquo;We make sure that our clients can put their trust in our
+          work.&rdquo;
+        </p>
       </div>
     </section>
   );

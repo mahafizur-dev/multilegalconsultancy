@@ -2,7 +2,9 @@
 
 import React, { useState } from "react";
 import { BookOpen, Loader2, CheckCircle2 } from "lucide-react";
+import Image from "next/image";
 import { Button } from "../ui/Button";
+import contactImage from "@/public/1.jpeg";
 
 export const EvaluationForm = () => {
   const [formData, setFormData] = useState({
@@ -51,21 +53,24 @@ export const EvaluationForm = () => {
   };
 
   return (
-    <section id="contact" className="flex flex-col lg:flex-row w-full">
+    <section id="contact" className="relative flex flex-col bg-cream overflow-hidden lg:block">
       {/* Form Side */}
-      <div className="bg-[#f8f9fa] p-10 lg:p-20 lg:w-1/2 flex justify-end order-2 lg:order-1 border-t border-gray-200">
-        <div className="max-w-md w-full text-[#222429]">
-          <h2 className="text-3xl font-bold uppercase mb-4 flex items-center">
-            <BookOpen className="mr-3 text-[#c39b65]" /> Contact Us
+      <div className="site-container order-2 py-16 lg:py-24">
+        <div data-reveal className="max-w-md lg:w-1/2 lg:max-w-none lg:pr-16 text-ink">
+          <p className="text-accent-600 font-semibold tracking-[0.25em] uppercase mb-4 text-xs flex items-center gap-2">
+            <BookOpen className="w-4 h-4" /> Get In Touch
+          </p>
+          <h2 className="font-serif text-3xl md:text-5xl leading-tight mb-5">
+            Contact <span className="text-accent">Us</span>
           </h2>
-          <p className="text-gray-500 mb-8 text-sm">
+          <p className="text-ink/70 mb-10">
             Contact us if you think we can assist you with your legal or
             taxation matters.
           </p>
 
           {status === "success" ? (
-            <div className="flex items-center gap-3 bg-green-50 border border-green-200 text-green-700 p-4 rounded-sm text-sm">
-              <CheckCircle2 className="w-5 h-5 shrink-0" />
+            <div className="flex items-center gap-3 bg-ink text-cream p-5 text-sm">
+              <CheckCircle2 className="w-5 h-5 shrink-0 text-accent" />
               Thank you! Your message has been sent. We'll get back to you soon.
             </div>
           ) : (
@@ -80,7 +85,7 @@ export const EvaluationForm = () => {
                 aria-hidden="true"
                 className="absolute left-[-9999px] w-px h-px overflow-hidden"
               />
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <input
                   type="text"
                   name="firstName"
@@ -88,7 +93,7 @@ export const EvaluationForm = () => {
                   value={formData.firstName}
                   onChange={handleChange}
                   required
-                  className="bg-white border border-gray-300 p-3 w-full focus:border-[#c39b65] outline-none rounded-sm"
+                  className="bg-white border border-ink/15 px-4 py-3.5 w-full text-ink placeholder:text-taupe/80 focus:border-accent-600 outline-none transition-colors"
                 />
                 <input
                   type="text"
@@ -97,10 +102,10 @@ export const EvaluationForm = () => {
                   value={formData.lastName}
                   onChange={handleChange}
                   required
-                  className="bg-white border border-gray-300 p-3 w-full focus:border-[#c39b65] outline-none rounded-sm"
+                  className="bg-white border border-ink/15 px-4 py-3.5 w-full text-ink placeholder:text-taupe/80 focus:border-accent-600 outline-none transition-colors"
                 />
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <input
                   type="email"
                   name="email"
@@ -108,15 +113,15 @@ export const EvaluationForm = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="bg-white border border-gray-300 p-3 w-full focus:border-[#c39b65] outline-none rounded-sm"
+                  className="bg-white border border-ink/15 px-4 py-3.5 w-full text-ink placeholder:text-taupe/80 focus:border-accent-600 outline-none transition-colors"
                 />
                 <input
-                  type="text"
+                  type="tel"
                   name="phone"
                   placeholder="Phone Number"
                   value={formData.phone}
                   onChange={handleChange}
-                  className="bg-white border border-gray-300 p-3 w-full focus:border-[#c39b65] outline-none rounded-sm"
+                  className="bg-white border border-ink/15 px-4 py-3.5 w-full text-ink placeholder:text-taupe/80 focus:border-accent-600 outline-none transition-colors"
                 />
               </div>
               <textarea
@@ -126,11 +131,11 @@ export const EvaluationForm = () => {
                 value={formData.message}
                 onChange={handleChange}
                 required
-                className="bg-white border border-gray-300 p-3 w-full focus:border-[#c39b65] outline-none rounded-sm"
+                className="bg-white border border-ink/15 px-4 py-3.5 w-full text-ink placeholder:text-taupe/80 focus:border-accent-600 outline-none transition-colors"
               ></textarea>
 
               {status === "error" && (
-                <p className="text-red-600 text-sm">
+                <p className="text-red-700 text-sm">
                   Something went wrong. Please try again or call us directly.
                 </p>
               )}
@@ -138,7 +143,8 @@ export const EvaluationForm = () => {
               <Button
                 type="submit"
                 disabled={status === "loading"}
-                className="w-full sm:w-auto"
+                rounded
+                className="w-full sm:w-auto px-9 py-4 disabled:opacity-70"
               >
                 {status === "loading" ? (
                   <span className="flex items-center gap-2">
@@ -155,10 +161,16 @@ export const EvaluationForm = () => {
 
       {/* Image Side */}
       <div
-        className="lg:w-1/2 h-80 lg:h-auto bg-cover bg-center order-1 lg:order-2"
-        style={{ backgroundImage: "url('/image_47ffdd.jpg')" }}
+        data-reveal="right"
+        className="order-1 flex items-center lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2"
       >
-        <div className="w-full h-full bg-[#c39b65]/20 mix-blend-multiply"></div>
+        <Image
+          src={contactImage}
+          alt="Multilegal Consultancy lawyers reviewing a case"
+          placeholder="blur"
+          sizes="(max-width: 1024px) 100vw, 50vw"
+          className="w-full h-auto"
+        />
       </div>
     </section>
   );

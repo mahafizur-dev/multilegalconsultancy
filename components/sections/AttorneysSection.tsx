@@ -1,5 +1,6 @@
 import React from "react";
 import { SectionHeading } from "../ui/SectionHeading";
+import { revealDelay } from "@/lib/motion";
 
 export const AttorneysSection = () => {
   const attorneys = [
@@ -54,29 +55,38 @@ export const AttorneysSection = () => {
   ];
 
   return (
-    <section id="team" className="py-20 bg-white">
-      <div className="container mx-auto px-4">
-        <SectionHeading subtitle="Dedicated Professionals" title="Our Team" />
+    <section id="team" className="py-24 bg-sand">
+      <div className="site-container">
+        <SectionHeading
+          subtitle="Dedicated Professionals"
+          title="Our"
+          highlight="Team"
+        />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {attorneys.map((lawyer, idx) => (
             <div
               key={idx}
-              className="group relative overflow-hidden bg-gray-50 shadow-sm border border-gray-100 rounded-sm"
+              data-reveal
+              style={revealDelay(idx)}
+              className="group flex flex-col"
             >
-              <img
-                src={lawyer.img}
-                alt={lawyer.name}
-                className="w-full h-72 object-cover object-top "
-              />
-              <div className="p-5 bg-white text-center border-t border-[#c39b65]/20 group-hover:border-[#c39b65] transition-colors">
-                <h3 className="text-[#222429] font-bold uppercase text-sm mb-1">
+              <div className="overflow-hidden">
+                <img
+                  src={lawyer.img}
+                  alt={lawyer.name}
+                  loading="lazy"
+                  className="w-full h-72 object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                />
+              </div>
+              <div className="flex-1 mt-2 p-6 bg-ink text-center transition-colors duration-300 group-hover:bg-ink-800">
+                <h3 className="font-serif text-cream uppercase tracking-wide mb-2">
                   {lawyer.name}
                 </h3>
-                <p className="text-[#c39b65] text-xs font-semibold mb-2 uppercase tracking-wide">
+                <p className="text-accent text-xs font-semibold mb-2 uppercase tracking-[0.15em]">
                   {lawyer.role}
                 </p>
-                <p className="text-gray-500 text-[11px] h-8">{lawyer.desc}</p>
+                <p className="text-cream/65 text-sm">{lawyer.desc}</p>
               </div>
             </div>
           ))}
