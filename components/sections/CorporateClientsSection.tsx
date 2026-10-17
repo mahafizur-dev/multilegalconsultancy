@@ -8,7 +8,7 @@ export const CorporateClientsSection = () => {
     "Seaform Bangladesh Pvt Ltd",
     "JAT Holding Bangladesh Pvt Ltd",
     "FLEXO Bangladesh Pvt Ltd",
-    "Fotress Venture Ltd",
+    "Fortress Venture Ltd",
     "AKH Group",
     "Popular Lub Pvt Ltd.",
   ];

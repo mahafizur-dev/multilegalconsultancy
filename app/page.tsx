@@ -11,6 +11,7 @@ import { CorporateClientsSection } from "@/components/sections/CorporateClientsS
 import { EvaluationForm } from "@/components/sections/EvaluationForm";
 import { Footer } from "@/components/sections/Footer";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 
 export default function Home() {
   return (
@@ -32,6 +33,7 @@ export default function Home() {
       </main>
 
       <Footer />
+      <WhatsAppButton />
       <ScrollReveal />
     </div>
   );

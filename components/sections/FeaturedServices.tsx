@@ -48,7 +48,7 @@ export const FeaturedServices = () => {
     {
       icon: <Landmark />,
       title: "Tax",
-      desc: "We are adept at managing and providing guidance on tax cases and disputes with the National Board of Revenue (NBR). Our experience includes participation in numerous significant tax cases. We handle legal tax issues within the constitutional jurisdiction of judicial review and the specialized statutory jurisdiction of the High Court Division, particularly under the Income Tax Ordinance, 1984. Additionally, we offer advice on double taxation agreements and incentive and exemption regimes for foreign investors.",
+      desc: "We are adept at managing and providing guidance on tax cases and disputes with the National Board of Revenue (NBR). Our experience includes participation in numerous significant tax cases. We handle legal tax issues within the constitutional jurisdiction of judicial review and the specialized statutory jurisdiction of the High Court Division, particularly under the Income Tax Act, 2023. Additionally, we offer advice on double taxation agreements and incentive and exemption regimes for foreign investors.",
     },
     {
       icon: <Users />,

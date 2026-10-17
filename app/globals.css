@@ -138,6 +138,30 @@ section[id] {
   }
 }
 
+/* WhatsApp button: clears the iOS home indicator, fades in after the hero,
+   then pulses twice to draw the eye (not forever). */
+@keyframes ring-pulse {
+  from {
+    box-shadow: 0 0 0 0 rgb(37 211 102 / 0.55);
+  }
+  to {
+    box-shadow: 0 0 0 16px rgb(37 211 102 / 0);
+  }
+}
+
+.whatsapp-button {
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  animation:
+    fade-up 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) 1.4s both,
+    ring-pulse 1.6s ease-out 2.2s 2;
+}
+
+@media (min-width: 640px) {
+  .whatsapp-button {
+    bottom: max(1.5rem, env(safe-area-inset-bottom));
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -145,7 +169,8 @@ section[id] {
 
   .hero-enter,
   .hero-image-enter,
-  .hero-underline::after {
+  .hero-underline::after,
+  .whatsapp-button {
     animation: none;
   }
 

@@ -1,10 +1,17 @@
 import React from "react";
 import { Scale, MapPin, Phone, Mail, ChevronRight } from "lucide-react";
-import { LOGO_URL } from "@/lib/brand";
+import {
+  EMAIL,
+  LINKEDIN_URL,
+  LOGO_URL,
+  PHONE_DISPLAY,
+  PHONE_TEL,
+  WHATSAPP_URL,
+} from "@/lib/brand";
 import { revealDelay } from "@/lib/motion";
 
 export const Footer = () => (
-  <footer className="bg-ink-900 text-cream/70 pt-20 pb-8">
+  <footer className="bg-ink-900 text-cream/70 pt-20 pb-24">
     <div className="site-container">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
         {/* Column 1 */}
@@ -22,22 +29,13 @@ export const Footer = () => (
             trust in our work.
           </p>
           <div className="flex space-x-3">
-            <div className="w-8 h-8 border border-cream/20 flex items-center justify-center hover:bg-accent hover:border-accent hover:text-ink transition cursor-pointer rounded">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-              </svg>
-            </div>
-            <div className="w-8 h-8 border border-cream/20 flex items-center justify-center hover:bg-accent hover:border-accent hover:text-ink transition cursor-pointer rounded">
+            <a
+              href={LINKEDIN_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Tanima Rahman on LinkedIn"
+              className="w-10 h-10 border border-cream/20 flex items-center justify-center hover:bg-accent hover:border-accent hover:text-ink transition rounded"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="14"
@@ -53,7 +51,7 @@ export const Footer = () => (
                 <rect x="2" y="9" width="4" height="12"></rect>
                 <circle cx="4" cy="4" r="2"></circle>
               </svg>
-            </div>
+            </a>
           </div>
         </div>
 
@@ -98,7 +96,10 @@ export const Footer = () => (
               "Labour & Employment",
             ].map((link, i) => (
               <li key={i}>
-                <a href="#" className="hover:text-accent flex items-center py-1.5">
+                <a
+                  href="#practices"
+                  className="hover:text-accent flex items-center py-1.5"
+                >
                   <ChevronRight size={14} className="mr-1 text-accent" />{" "}
                   {link}
                 </a>
@@ -129,11 +130,27 @@ export const Footer = () => (
             </li>
             <li className="flex items-center">
               <Phone className="w-5 h-5 text-accent mr-3 shrink-0" />
-              <span>+8801307289692 (Cell/WhatsApp)</span>
+              <span>
+                <a href={PHONE_TEL} className="hover:text-accent">
+                  {PHONE_DISPLAY}
+                </a>{" "}
+                (Cell/
+                <a
+                  href={WHATSAPP_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-accent underline decoration-cream/30 underline-offset-2"
+                >
+                  WhatsApp
+                </a>
+                )
+              </span>
             </li>
             <li className="flex items-center">
               <Mail className="w-5 h-5 text-accent mr-3 shrink-0" />
-              <span>adv.tanimarahman@gmail.com</span>
+              <a href={`mailto:${EMAIL}`} className="hover:text-accent break-all">
+                {EMAIL}
+              </a>
             </li>
           </ul>
         </div>
@@ -145,14 +162,7 @@ export const Footer = () => (
           &copy; {new Date().getFullYear()} Multilegal Consultancy (MCL). All
           Rights Reserved.
         </p>
-        <div className="flex space-x-4 mt-4 md:mt-0">
-          <a href="#" className="hover:text-cream py-1">
-            Terms of Use
-          </a>
-          <a href="#" className="hover:text-cream py-1">
-            Privacy Policy
-          </a>
-        </div>
+        <p className="mt-4 md:mt-0">Dhaka, Bangladesh</p>
       </div>
     </div>
   </footer>
