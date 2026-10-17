@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import { Scale, MapPin, Phone, Mail, ChevronRight } from "lucide-react";
 import {
   EMAIL,
@@ -17,10 +18,13 @@ export const Footer = () => (
         {/* Column 1 */}
         <div data-reveal className="lg:pr-6">
           <div className="flex items-center mb-6">
-            <img
+            <Image
               src={LOGO_URL}
               alt="MCL Multilegal Consultancy"
-              className="h-10 md:h-11 w-auto object-contain"
+              width={600}
+              height={111}
+              sizes="240px"
+              className="h-10 md:h-11 w-auto"
             />
           </div>
           <p className="text-sm mb-6 leading-relaxed">

@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import { SectionHeading } from "../ui/SectionHeading";
 import { revealDelay } from "@/lib/motion";
 
@@ -71,12 +72,13 @@ export const AttorneysSection = () => {
               style={revealDelay(idx)}
               className="group flex flex-col"
             >
-              <div className="overflow-hidden">
-                <img
+              <div className="relative h-72 overflow-hidden bg-cream">
+                <Image
                   src={lawyer.img}
                   alt={lawyer.name}
-                  loading="lazy"
-                  className="w-full h-72 object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
                 />
               </div>
               <div className="flex-1 mt-2 p-6 bg-ink text-center transition-colors duration-300 group-hover:bg-ink-800">
