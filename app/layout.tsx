@@ -1,5 +1,6 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Archivo, Libre_Baskerville } from "next/font/google";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/brand";
 import "./globals.css";
 
 const archivo = Archivo({
@@ -16,9 +17,27 @@ const baskerville = Libre_Baskerville({
 
 // ওয়েবসাইটের টাইটেল এবং ডেসক্রিপশন আপডেট করা হলো
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: "MCL | Multilegal Consultancy",
-  description:
-    "A Corporate & Taxation Law Firm stationed in Dhaka, Bangladesh providing a one-stop-service to national and multinational companies.",
+  description: SITE_DESCRIPTION,
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    url: "/",
+    siteName: SITE_NAME,
+    title: "Multilegal Consultancy | Corporate & Taxation Law Firm, Dhaka",
+    description: SITE_DESCRIPTION,
+    locale: "en_BD",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Multilegal Consultancy | Corporate & Taxation Law Firm, Dhaka",
+    description: SITE_DESCRIPTION,
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#2d1c0d",
 };
 
 export default function RootLayout({

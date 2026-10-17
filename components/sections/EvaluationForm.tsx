@@ -5,19 +5,47 @@ import { BookOpen, Loader2, CheckCircle2 } from "lucide-react";
 import Image from "next/image";
 import { Button } from "../ui/Button";
 import contactImage from "@/public/1.jpeg";
+import { FIELD_LIMITS } from "@/lib/contact";
+
+const EMPTY_FORM = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  phone: "",
+  message: "",
+  website: "", // honeypot: left blank by real users, hidden from view
+};
+
+const inputClass =
+  "bg-white border border-ink/15 px-4 py-3.5 w-full text-ink placeholder:text-taupe/70 focus:border-accent-600 outline-none transition-colors";
+
+const Label = ({
+  htmlFor,
+  children,
+  optional = false,
+}: {
+  htmlFor: string;
+  children: React.ReactNode;
+  optional?: boolean;
+}) => (
+  <label htmlFor={htmlFor} className="block text-sm font-medium text-ink mb-1.5">
+    {children}
+    {optional ? (
+      <span className="ml-1 font-normal text-taupe">(optional)</span>
+    ) : (
+      <span aria-hidden="true" className="ml-0.5 text-accent-600">
+        *
+      </span>
+    )}
+  </label>
+);
 
 export const EvaluationForm = () => {
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    message: "",
-    website: "", // honeypot: left blank by real users, hidden from view
-  });
+  const [formData, setFormData] = useState(EMPTY_FORM);
   const [status, setStatus] = useState<
     "idle" | "loading" | "success" | "error"
   >("idle");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -36,18 +64,22 @@ export const EvaluationForm = () => {
         body: JSON.stringify(formData),
       });
 
-      if (!res.ok) throw new Error("Failed to send");
+      if (!res.ok) {
+        setErrorMessage(
+          res.status === 429
+            ? "You've sent several messages recently. Please wait a few minutes, or call us directly."
+            : "Something went wrong. Please try again or call us directly.",
+        );
+        setStatus("error");
+        return;
+      }
 
       setStatus("success");
-      setFormData({
-        firstName: "",
-        lastName: "",
-        email: "",
-        phone: "",
-        message: "",
-        website: "",
-      });
-    } catch (err) {
+      setFormData(EMPTY_FORM);
+    } catch {
+      setErrorMessage(
+        "We couldn't reach the server. Please check your connection or call us directly.",
+      );
       setStatus("error");
     }
   };
@@ -69,12 +101,16 @@ export const EvaluationForm = () => {
           </p>
 
           {status === "success" ? (
-            <div className="flex items-center gap-3 bg-ink text-cream p-5 text-sm">
+            <div
+              role="status"
+              className="flex items-center gap-3 bg-ink text-cream p-5 text-sm"
+            >
               <CheckCircle2 className="w-5 h-5 shrink-0 text-accent" />
-              Thank you! Your message has been sent. We'll get back to you soon.
+              Thank you! Your message has been sent. We&apos;ll get back to you
+              soon.
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-5">
               <input
                 type="text"
                 name="website"
@@ -85,58 +121,94 @@ export const EvaluationForm = () => {
                 aria-hidden="true"
                 className="absolute left-[-9999px] w-px h-px overflow-hidden"
               />
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <input
-                  type="text"
-                  name="firstName"
-                  placeholder="First Name"
-                  value={formData.firstName}
-                  onChange={handleChange}
-                  required
-                  className="bg-white border border-ink/15 px-4 py-3.5 w-full text-ink placeholder:text-taupe/80 focus:border-accent-600 outline-none transition-colors"
-                />
-                <input
-                  type="text"
-                  name="lastName"
-                  placeholder="Last Name"
-                  value={formData.lastName}
-                  onChange={handleChange}
-                  required
-                  className="bg-white border border-ink/15 px-4 py-3.5 w-full text-ink placeholder:text-taupe/80 focus:border-accent-600 outline-none transition-colors"
-                />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <div>
+                  <Label htmlFor="contact-first-name">First name</Label>
+                  <input
+                    id="contact-first-name"
+                    type="text"
+                    name="firstName"
+                    autoComplete="given-name"
+                    maxLength={FIELD_LIMITS.firstName}
+                    value={formData.firstName}
+                    onChange={handleChange}
+                    required
+                    className={inputClass}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="contact-last-name">Last name</Label>
+                  <input
+                    id="contact-last-name"
+                    type="text"
+                    name="lastName"
+                    autoComplete="family-name"
+                    maxLength={FIELD_LIMITS.lastName}
+                    value={formData.lastName}
+                    onChange={handleChange}
+                    required
+                    className={inputClass}
+                  />
+                </div>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Email Address"
-                  value={formData.email}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <div>
+                  <Label htmlFor="contact-email">Email</Label>
+                  <input
+                    id="contact-email"
+                    type="email"
+                    name="email"
+                    autoComplete="email"
+                    placeholder="you@company.com"
+                    maxLength={FIELD_LIMITS.email}
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    className={inputClass}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="contact-phone" optional>
+                    Phone
+                  </Label>
+                  <input
+                    id="contact-phone"
+                    type="tel"
+                    name="phone"
+                    autoComplete="tel"
+                    placeholder="+880"
+                    maxLength={FIELD_LIMITS.phone}
+                    value={formData.phone}
+                    onChange={handleChange}
+                    className={inputClass}
+                  />
+                </div>
+              </div>
+              <div>
+                <Label htmlFor="contact-message">How can we assist you?</Label>
+                <textarea
+                  id="contact-message"
+                  name="message"
+                  rows={4}
+                  placeholder="Briefly describe your legal or tax matter"
+                  maxLength={FIELD_LIMITS.message}
+                  value={formData.message}
                   onChange={handleChange}
                   required
-                  className="bg-white border border-ink/15 px-4 py-3.5 w-full text-ink placeholder:text-taupe/80 focus:border-accent-600 outline-none transition-colors"
-                />
-                <input
-                  type="tel"
-                  name="phone"
-                  placeholder="Phone Number"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  className="bg-white border border-ink/15 px-4 py-3.5 w-full text-ink placeholder:text-taupe/80 focus:border-accent-600 outline-none transition-colors"
-                />
+                  className={inputClass}
+                ></textarea>
               </div>
-              <textarea
-                name="message"
-                placeholder="How can we assist you?"
-                rows={4}
-                value={formData.message}
-                onChange={handleChange}
-                required
-                className="bg-white border border-ink/15 px-4 py-3.5 w-full text-ink placeholder:text-taupe/80 focus:border-accent-600 outline-none transition-colors"
-              ></textarea>
+
+              <p className="text-xs text-taupe">
+                <span aria-hidden="true" className="text-accent-600">
+                  *
+                </span>{" "}
+                Required fields
+              </p>
 
               {status === "error" && (
-                <p className="text-red-700 text-sm">
-                  Something went wrong. Please try again or call us directly.
+                <p role="alert" className="text-red-700 text-sm">
+                  {errorMessage}
                 </p>
               )}
 

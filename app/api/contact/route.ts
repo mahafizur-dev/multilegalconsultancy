@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
-
-const resend = new Resend(process.env.RESEND_API_KEY);
+import { FIELD_LIMITS } from "@/lib/contact";
 
 const escapeHtml = (value: string) =>
   value
@@ -11,45 +10,118 @@ const escapeHtml = (value: string) =>
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#39;");
 
+// Email headers are plain text: strip line breaks so input can't inject headers.
+const toHeaderText = (value: string) => value.replace(/[\r\n]+/g, " ").trim();
+
+// Best-effort per-IP rate limit. Memory is per server instance, so on
+// serverless hosting this slows bursts rather than enforcing a hard global cap.
+const RATE_LIMIT = 5;
+const RATE_WINDOW_MS = 10 * 60 * 1000;
+const recentRequests = new Map<string, number[]>();
+
+const isRateLimited = (ip: string) => {
+  const now = Date.now();
+  const recent = (recentRequests.get(ip) ?? []).filter(
+    (time) => now - time < RATE_WINDOW_MS,
+  );
+  if (recent.length >= RATE_LIMIT) {
+    recentRequests.set(ip, recent);
+    return true;
+  }
+  recent.push(now);
+  recentRequests.set(ip, recent);
+  // Keep the map from growing without bound.
+  if (recentRequests.size > 5000) {
+    for (const [key, times] of recentRequests) {
+      if (times.every((time) => now - time >= RATE_WINDOW_MS)) {
+        recentRequests.delete(key);
+      }
+    }
+  }
+  return false;
+};
+
+const fail = (status: number, error: string) =>
+  NextResponse.json({ success: false, error }, { status });
+
+const asTrimmedString = (value: unknown) =>
+  typeof value === "string" ? value.trim() : null;
+
 export async function POST(req: Request) {
+  const ip =
+    req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+    req.headers.get("x-real-ip") ||
+    "unknown";
+
+  let body: Record<string, unknown>;
   try {
-    const body = await req.json();
-    const { firstName, lastName, email, phone, message, website } = body;
-
-    // Honeypot: real users never fill this hidden field. Bots that do get a
-    // fake success response so they don't learn to avoid the trap.
-    if (typeof website === "string" && website.trim() !== "") {
-      return NextResponse.json({ success: true });
+    const parsed = await req.json();
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
+      return fail(400, "Invalid request");
     }
+    body = parsed;
+  } catch {
+    return fail(400, "Invalid request");
+  }
 
-    // Basic validation
-    if (!firstName || !lastName || !email || !message) {
-      return NextResponse.json(
-        { success: false, error: "Missing required fields" },
-        { status: 400 },
-      );
-    }
+  // Honeypot: real users never fill this hidden field. Bots that do get a
+  // fake success response so they don't learn to avoid the trap.
+  const website = body.website;
+  if (typeof website === "string" && website.trim() !== "") {
+    return NextResponse.json({ success: true });
+  }
 
-    // Simple email format check
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      return NextResponse.json(
-        { success: false, error: "Invalid email address" },
-        { status: 400 },
-      );
-    }
+  if (isRateLimited(ip)) {
+    return fail(429, "Too many requests. Please try again later.");
+  }
 
-    const safeFirstName = escapeHtml(firstName);
-    const safeLastName = escapeHtml(lastName);
-    const safeEmail = escapeHtml(email);
-    const safePhone = escapeHtml(phone || "Not provided");
-    const safeMessage = escapeHtml(message).replace(/\n/g, "<br/>");
+  const firstName = asTrimmedString(body.firstName);
+  const lastName = asTrimmedString(body.lastName);
+  const email = asTrimmedString(body.email);
+  const phone = asTrimmedString(body.phone ?? "");
+  const message = asTrimmedString(body.message);
 
+  if (!firstName || !lastName || !email || !message || phone === null) {
+    return fail(400, "Missing required fields");
+  }
+
+  if (
+    firstName.length > FIELD_LIMITS.firstName ||
+    lastName.length > FIELD_LIMITS.lastName ||
+    email.length > FIELD_LIMITS.email ||
+    phone.length > FIELD_LIMITS.phone ||
+    message.length > FIELD_LIMITS.message
+  ) {
+    return fail(400, "One or more fields are too long");
+  }
+
+  // Simple email format check
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    return fail(400, "Invalid email address");
+  }
+
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    console.error("Contact form error: RESEND_API_KEY is not set");
+    return fail(500, "Failed to send message");
+  }
+
+  const safeFirstName = escapeHtml(firstName);
+  const safeLastName = escapeHtml(lastName);
+  const safeEmail = escapeHtml(email);
+  const safePhone = escapeHtml(phone || "Not provided");
+  const safeMessage = escapeHtml(message).replace(/\n/g, "<br/>");
+
+  try {
+    const resend = new Resend(apiKey);
     const { error: sendError } = await resend.emails.send({
       from: "MCL Website <no-reply@multilegalconsultancy.com>",
       to: ["adv.tanimarahman@gmail.com"], // where you want to receive inquiries
       replyTo: email,
-      subject: `New Consultation Request from ${safeFirstName} ${safeLastName}`,
+      subject: toHeaderText(
+        `New Consultation Request from ${firstName} ${lastName}`,
+      ),
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <div style="background-color: #2d1c0d; padding: 24px; text-align: center;">
@@ -88,18 +160,12 @@ export async function POST(req: Request) {
 
     if (sendError) {
       console.error("Resend send error:", sendError);
-      return NextResponse.json(
-        { success: false, error: "Failed to send message" },
-        { status: 502 },
-      );
+      return fail(502, "Failed to send message");
     }
 
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Contact form error:", error);
-    return NextResponse.json(
-      { success: false, error: "Failed to send message" },
-      { status: 500 },
-    );
+    return fail(500, "Failed to send message");
   }
 }
